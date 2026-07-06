@@ -1,9 +1,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 
-export const defaultLanguage = "zh-CN";
-export const supportedLanguages = ["zh-CN", "en-US"] as const;
-export type SupportedLanguage = (typeof supportedLanguages)[number];
+import { defaultLanguage } from "@/i18n/constants";
 
 const resources = {
   "zh-CN": {
@@ -42,6 +40,9 @@ const resources = {
       guide: {
         languageDescription: "切换后会持久化语言，并在非默认语言请求中写入 headers.lang。",
         languageTitle: "多语言切换",
+        nextButton: "下一步",
+        prevButton: "上一步",
+        doneButton: "完成",
         requestDescription: "统一请求工具会读取当前语言和主题，并自动注入请求头。",
         requestTitle: "请求示例",
         themeDescription: "默认跟随系统，也可以主动选择浅色或深色主题。",
@@ -107,6 +108,9 @@ const resources = {
         languageDescription:
           "Language changes are persisted, and non-default language requests include headers.lang.",
         languageTitle: "Language switch",
+        nextButton: "Next",
+        prevButton: "Previous",
+        doneButton: "Done",
         requestDescription:
           "The request utility reads the active language and theme, then injects headers automatically.",
         requestTitle: "Request demo",

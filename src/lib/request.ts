@@ -1,4 +1,4 @@
-import { defaultLanguage } from "@/i18n/client";
+import { defaultLanguage } from "@/i18n/constants";
 
 type RequestOptions<TMock> = Omit<RequestInit, "headers"> & {
   baseUrl?: string;

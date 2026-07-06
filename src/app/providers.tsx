@@ -2,11 +2,11 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue, useSetAtom } from "jotai";
-import { ThemeProvider } from "next-themes";
 import { useEffect, useState } from "react";
 
 import i18n from "@/i18n/client";
 import { isSupportedLanguage, languageAtom } from "@/core/state/preferences";
+import { ThemeProvider } from "@/core/theme";
 
 function LanguageBootstrap({ children }: { children: React.ReactNode }) {
   const language = useAtomValue(languageAtom);
@@ -45,14 +45,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     <JotaiProvider>
       <LanguageBootstrap>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </QueryClientProvider>
       </LanguageBootstrap>
     </JotaiProvider>

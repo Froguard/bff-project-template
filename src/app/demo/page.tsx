@@ -6,7 +6,6 @@ import { driver } from "driver.js";
 import { capitalize } from "es-toolkit";
 import { useAtom } from "jotai";
 import { Monitor, Moon, Play, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { languageAtom, type Language } from "@/core/state/preferences";
+import { useTheme } from "@/core/theme";
 import { request } from "@/lib/request";
 
 const languages: Array<{ label: string; value: Language }> = [
@@ -46,18 +46,17 @@ export default function DemoPage() {
 
   const demoRequest = useMutation({
     mutationFn: () =>
-      request<{ ok: boolean; requestedAt: string }>("/demo", {
-        baseUrl: "",
-        mock: {
-          ok: true,
-          requestedAt: new Date().toISOString(),
-        },
-      }),
+      request<{ ok: boolean; requestedAt: string; headers: { lang: string; theme: string } }>(
+        "/demo",
+      ),
   });
 
   const startGuide = useMemoizedFn(() => {
     driver({
       showProgress: true,
+      doneBtnText: t("guide.doneButton"),
+      nextBtnText: t("guide.nextButton"),
+      prevBtnText: t("guide.prevButton"),
       steps: [
         {
           element: "#language-card",

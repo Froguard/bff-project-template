@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-import { defaultLanguage, supportedLanguages, type SupportedLanguage } from "@/i18n/client";
+import { defaultLanguage, supportedLanguages, type SupportedLanguage } from "@/i18n/constants";
 
 export type Language = SupportedLanguage;
 
