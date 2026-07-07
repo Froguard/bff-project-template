@@ -4,6 +4,7 @@ const cdnOrigin = process.env.NEXT_PUBLIC_CDN_ORIGIN?.replace(/\/$/, "");
 const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
+  // 允许本地 dev 环境直接访问（hmr 所必须开启）
   allowedDevOrigins: ["127.0.0.1", "localhost"],
   // 生产环境 CDN 配置
   assetPrefix: isProduction && cdnOrigin ? cdnOrigin : undefined,
