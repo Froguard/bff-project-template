@@ -15,7 +15,7 @@ pnpm run mock
 当成功启动后，控制台会有类似如下的输出，表示成功
 
 ```sh
-$ yarn mock
+$ pnpm run mock
 [mihawk]: ✔ load root-config file: .mihawkrc.ts
 [mihawk]: config: {
   host: '0.0.0.0',
@@ -36,7 +36,7 @@ $ yarn mock
 ]
 [mihawk]: Mock Server address:
 [mihawk]: - http://0.0.0.0:9999
-[mihawk]: - http://10.124.97.102:9999
+[mihawk]: - http://192.168.0.223:9999
 ```
 
 然后访问 http://0.0.0.0:9999 将会看到 demo 接口
