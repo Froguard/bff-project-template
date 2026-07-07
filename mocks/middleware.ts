@@ -12,16 +12,12 @@ const router = new Router();
 /*
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.get('/api/demo', async (ctx: KoaContext) => {
-  const langHeader = ctx.get('lang') || ctx.get('accept-language');
-  const themeHeader = ctx.get('theme');
-  const lang = langHeader || 'zh-CN';
-  const theme = themeHeader || 'system';
   ctx.status = 200;
   ctx.type = 'application/json';
   ctx.body = {
     headers: {
-      lang,
-      theme,
+      lang: ctx.get('lang') || ctx.get('accept-language') || 'zh-CN',
+      theme: ctx.get('theme') || 'system',
     },
     ok: true,
     requestedAt: new Date().toISOString(),
