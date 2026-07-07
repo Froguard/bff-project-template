@@ -35,6 +35,24 @@ pnpm install
 
 ## 本地启动
 
+本地开发需要同时启动两个进程：
+
+```bash
+pnpm dev
+pnpm mock
+```
+
+建议分开两个终端窗口执行。
+
+其中：
+
+- `pnpm dev` 启动 Next.js server。
+- `pnpm mock` 启动 `mihawk` mockServer。
+
+浏览器访问时，前端请求会通过 `next.config.ts` 在开发环境下转发到 `http://127.0.0.1:9999`。
+
+如果只想启动 Next.js 页面，可以单独执行：
+
 ```bash
 pnpm dev
 ```
@@ -81,6 +99,11 @@ NEXT_PUBLIC_CDN_ORIGIN=https://cdn.example.com
 当 `NODE_ENV=production` 且配置了 `NEXT_PUBLIC_CDN_ORIGIN` 时，Next.js 的 `/_next/static` 静态资源会通过 `assetPrefix` 自动拼接 CDN 前缀。
 
 如果使用 `public` 目录下的静态资源，请通过 `src/lib/assets.ts` 中的 `assetUrl()` 获取路径，确保生产环境也能拼接 CDN 前缀。
+
+## 接口约定
+
+- `"/api/"` 开头的接口统一表示前端 client 侧依赖的服务接口，开发环境下由 `next.config.ts` 转发到 `http://127.0.0.1:9999` 的 `mihawk` mockServer。
+- `"/napi/"` 开头的接口统一表示本系统 Next.js nodeServer 对外提供的接口。
 
 ## 页面说明
 

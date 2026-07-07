@@ -5,6 +5,18 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
   assetPrefix: isProduction && cdnOrigin ? cdnOrigin : undefined,
+  async rewrites() {
+    if (!isProduction) {
+      return [
+        {
+          destination: "http://127.0.0.1:9999/api/:path*",
+          source: "/api/:path*",
+        },
+      ];
+    }
+
+    return [];
+  },
   webpack(config, { dev, isServer }) {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
