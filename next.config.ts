@@ -27,7 +27,7 @@ function resolveGitCommitSha() {
 const nextConfig: NextConfig = {
   // 允许本地 dev 环境直接访问（hmr 所必须开启）
   allowedDevOrigins: ["127.0.0.1", "0.0.0.0", "localhost"],
-  // 构建产物标识，用于注入每个页面 head 顶部的 etag meta。
+  // 构建产物标识，用于 RootLayout 生成版本检测所需的 etag meta。
   env: {
     NEXT_PUBLIC_GIT_COMMIT_SHA: gitCommitSha,
   },
