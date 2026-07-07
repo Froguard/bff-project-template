@@ -13,7 +13,7 @@ import { MhkCvtrExtra } from "mihawk/com-types";
  */
 export default async function convertData(originData: Record<string, any>, extra: MhkCvtrExtra) {
   originData.headers = {
-    lang: extra.headers["accept-language"],
+    lang: extra.headers["accept-language"]?.split(",")[0],
     theme: extra.headers["theme"],
   };
   originData.requestedAt = new Date().toISOString();
