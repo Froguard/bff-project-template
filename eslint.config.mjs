@@ -7,6 +7,11 @@ const eslintConfig = [
   ...nextTypescript,
   prettier,
   {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
+  },
+  {
     ignores: [".next/**", "out/**", "build/**", "dist/**", "next-env.d.ts"],
   },
 ];
