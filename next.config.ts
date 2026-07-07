@@ -4,6 +4,7 @@ const cdnOrigin = process.env.NEXT_PUBLIC_CDN_ORIGIN?.replace(/\/$/, "");
 const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   // 生产环境 CDN 配置
   assetPrefix: isProduction && cdnOrigin ? cdnOrigin : undefined,
   // 本地开发接口代理
