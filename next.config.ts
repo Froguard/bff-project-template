@@ -14,9 +14,9 @@ const nextConfig: NextConfig = {
         },
       ];
     }
-
     return [];
   },
+
   webpack(config, { dev, isServer }) {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -47,7 +47,6 @@ const nextConfig: NextConfig = {
         },
       };
     }
-
     return config;
   },
 };
