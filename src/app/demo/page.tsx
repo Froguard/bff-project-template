@@ -53,6 +53,8 @@ export default function DemoPage() {
 
   const startGuide = useMemoizedFn(() => {
     driver({
+      // Driver.js uses this class as the official theming hook for popover styling.
+      popoverClass: "driverjs-app-theme",
       showProgress: true,
       doneBtnText: t("guide.doneButton"),
       nextBtnText: t("guide.nextButton"),
