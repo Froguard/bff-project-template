@@ -4,7 +4,9 @@ const cdnOrigin = process.env.NEXT_PUBLIC_CDN_ORIGIN?.replace(/\/$/, "");
 const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
+  // 生产环境 CDN 配置
   assetPrefix: isProduction && cdnOrigin ? cdnOrigin : undefined,
+  // 本地开发接口代理
   async rewrites() {
     if (!isProduction) {
       return [
@@ -16,7 +18,7 @@ const nextConfig: NextConfig = {
     }
     return [];
   },
-
+  // 拆包策略优化
   webpack(config, { dev, isServer }) {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
