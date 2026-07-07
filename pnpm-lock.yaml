@@ -114,8 +114,8 @@ importers:
         specifier: 17.0.8
         version: 17.0.8
       mihawk:
-        specifier: 0.1.0-z
-        version: 0.1.0-z
+        specifier: 1.0.0
+        version: 1.0.0
       prettier:
         specifier: 3.9.4
         version: 3.9.4
@@ -4019,10 +4019,10 @@ packages:
       }
     engines: { node: ">=8.6" }
 
-  mihawk@0.1.0-z:
+  mihawk@1.0.0:
     resolution:
       {
-        integrity: sha512-m4jV57ltNw2CjZcjCD4MMr458vyKJ9bNgVlIk8YHD/ojKAHqT7oCGBIHgPPR7CvzXjHYpDqhhLmr1rRFmCXmnQ==,
+        integrity: sha512-Sebr/H6SsOWbGV9TwSGxJiYarHe1Fb1pnJ7OpX8zF51kEJtdtLWKy+WlBf50HFuYQTcSjuLrZDti8gbKHy1ImQ==,
       }
     engines: { node: ">=18.13.0" }
     hasBin: true
@@ -7762,7 +7762,7 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.2
 
-  mihawk@0.1.0-z:
+  mihawk@1.0.0:
     dependencies:
       "@types/fs-extra": 11.0.4
       "@types/koa": 2.15.2
