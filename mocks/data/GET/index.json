@@ -1,5 +1,10 @@
 {
   "code": 200,
-  "data": "Empty Data!",
-  "msg": "Auto init file: mocks/data/GET/index.json"
+  "data": {},
+  "msg": "Auto init file: mocks/data/GET/index.json",
+  "_meta": {
+    "route": "GET /",
+    "method": "GET",
+    "url": "/"
+  }
 }
