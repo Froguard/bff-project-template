@@ -105,6 +105,10 @@ NEXT_PUBLIC_CDN_ORIGIN=https://cdn.example.com
 - `"/api/"` 开头的接口统一表示前端 client 侧依赖的服务接口，开发环境下由 `next.config.ts` 转发到 `http://127.0.0.1:9999` 的 `mihawk` mockServer。
 - `"/napi/"` 开头的接口统一表示本系统 Next.js nodeServer 对外提供的接口。
 
+## 命名规范
+
+- 新增文件命名统一使用 kebab-case：仅允许小写字母、数字和横线连字符 `-`，不允许出现大写字母。仓库根目录中由工具或社区约定的固定文件名除外，例如 `README.md`、`AGENTS.md`。
+
 ## 页面说明
 
 - `/`：欢迎页，展示工程模板简介和进入 demo 的入口。

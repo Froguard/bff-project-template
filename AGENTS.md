@@ -45,6 +45,7 @@ pnpm format:check
 - 保持 `package.json` 和 `pnpm-lock.yaml` 一致。
 - 文件修改优先使用 `apply_patch`。
 - 变更范围尽量贴合当前请求，不要扩散到无关内容。
+- 新增文件命名统一使用 kebab-case：仅允许小写字母、数字和横线连字符 `-`，不允许出现大写字母。仓库根目录中由工具或社区约定的固定文件名除外，例如 `README.md`、`AGENTS.md`。
 - 在完成较大修改前，执行 `pnpm lint`、`pnpm typecheck`、`pnpm format:check` 和 `pnpm build`。
 
 ## 接口约定

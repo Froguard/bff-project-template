@@ -15,6 +15,9 @@ const resources = {
         kicker: "Next.js SPA Template",
         title: "BFF 前端工程模板",
       },
+      common: {
+        close: "关闭",
+      },
       home: {
         cta: "查看 Demo",
         description:
@@ -67,6 +70,12 @@ const resources = {
         system: "跟随系统",
         title: "主题",
       },
+      versionUpdate: {
+        description: "刷新页面即可使用最新内容。",
+        refresh: "刷新",
+        refreshAlt: "刷新页面以更新到最新版本",
+        title: "发现新版本",
+      },
     },
   },
   "en-US": {
@@ -79,6 +88,9 @@ const resources = {
           "This page demonstrates the baseline integration for i18n, theme switching, request headers, React Query, Jotai, driver.js, ahooks, and es-toolkit.",
         kicker: "Next.js SPA Template",
         title: "BFF Frontend Template",
+      },
+      common: {
+        close: "Close",
       },
       home: {
         cta: "View demo",
@@ -136,6 +148,12 @@ const resources = {
         pending: "Loading theme",
         system: "System",
         title: "Theme",
+      },
+      versionUpdate: {
+        description: "Refresh to load the latest content.",
+        refresh: "Refresh",
+        refreshAlt: "Refresh the page to update to the latest version",
+        title: "New version available",
       },
     },
   },

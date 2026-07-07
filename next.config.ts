@@ -1,11 +1,36 @@
+import { execSync } from "node:child_process";
 import type { NextConfig } from "next";
 
 const cdnOrigin = process.env.NEXT_PUBLIC_CDN_ORIGIN?.replace(/\/$/, "");
 const isProduction = process.env.NODE_ENV === "production";
+const gitCommitSha = resolveGitCommitSha();
+
+function resolveGitCommitSha() {
+  const envSha =
+    process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GITHUB_SHA ?? process.env.COMMIT_SHA;
+
+  if (envSha) {
+    return envSha;
+  }
+
+  try {
+    return execSync("git rev-parse HEAD", {
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+  } catch {
+    return "unknown";
+  }
+}
 
 const nextConfig: NextConfig = {
   // 允许本地 dev 环境直接访问（hmr 所必须开启）
   allowedDevOrigins: ["127.0.0.1", "0.0.0.0", "localhost"],
+  // 构建产物标识，用于注入每个页面 head 顶部的 etag meta。
+  env: {
+    NEXT_PUBLIC_GIT_COMMIT_SHA: gitCommitSha,
+  },
   // 生产环境 CDN 配置
   assetPrefix: isProduction && cdnOrigin ? cdnOrigin : undefined,
   // 本地开发接口代理

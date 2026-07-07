@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider as JotaiProvider, useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 
+import { Toaster } from "@/components/ui/toaster";
+import { VersionUpdateNotifier } from "@/components/version-update-notifier";
 import i18n from "@/i18n/client";
 import { isSupportedLanguage, languageAtom } from "@/core/state/preferences";
 import { ThemeProvider } from "@/core/theme";
@@ -45,7 +47,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     <JotaiProvider>
       <LanguageBootstrap>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            <VersionUpdateNotifier />
+            <Toaster />
+          </ThemeProvider>
         </QueryClientProvider>
       </LanguageBootstrap>
     </JotaiProvider>
