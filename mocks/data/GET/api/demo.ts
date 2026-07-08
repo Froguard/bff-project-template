@@ -1,4 +1,4 @@
-"use strict;";
+"use strict";
 /**
  * GET /api/demo
  * This file isn‘t mandatory. If it is not needed (such as when there is no need to modify response data), it can be deleted directly
