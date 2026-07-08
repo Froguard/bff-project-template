@@ -16,7 +16,7 @@ function scheduleAfterPageLoad(callback: () => void) {
   let cancelScheduledTask: (() => void) | undefined;
 
   const schedule = () => {
-    // The first registration is delayed until after load/idle so it does not compete with hydration.
+    // 首次检测延迟到页面 load/idle 之后，避免和首屏 hydration 抢主线程。
     if (typeof window.requestIdleCallback === "function") {
       const idleId = window.requestIdleCallback(callback, { timeout: 3000 });
       cancelScheduledTask = () => window.cancelIdleCallback(idleId);
@@ -67,7 +67,7 @@ function setDismissedEtag(etag: string) {
   try {
     window.sessionStorage.setItem(dismissedStorageKey, etag);
   } catch {
-    // Storage failures should not block closing the update notice.
+    // 存储失败不应阻断用户关闭更新提示。
   }
 }
 
@@ -85,6 +85,7 @@ function getDevelopmentMockRemoteEtag(currentEtag: string) {
     return "";
   }
 
+  // 开发环境可通过 /demo?mock-version-update=1 稳定触发 toast，便于视觉和交互验证。
   const searchParams = new URLSearchParams(window.location.search);
 
   if (!searchParams.has(mockVersionUpdateSearchParam)) {
@@ -108,6 +109,7 @@ export function VersionUpdateNotifier() {
     const showUpdateToast = (remoteEtag: string) => {
       const toastKey = `${remoteEtag}:${activeLanguage}`;
 
+      // 同一个版本在当前 tab 会话内关闭后不再提示；语言变化只更新同一个 toast，不堆叠多个。
       if (promptedToastKeyRef.current === toastKey || getDismissedEtag() === remoteEtag) {
         return;
       }
@@ -143,7 +145,7 @@ export function VersionUpdateNotifier() {
         return;
       }
 
-      // Avoid creating the toast with the default locale before persisted language is restored.
+      // 等待本地持久化语言恢复完成，避免先按默认语言弹 toast 后再切语言造成闪烁。
       const persistedLanguage = getPersistedLanguage();
       if (persistedLanguage && persistedLanguage !== activeLanguage) {
         return;
@@ -157,7 +159,6 @@ export function VersionUpdateNotifier() {
 
       const mockRemoteEtag = getDevelopmentMockRemoteEtag(currentEtag);
 
-      // Development-only switch for visual verification: /demo?mock-version-update=1
       if (mockRemoteEtag) {
         showUpdateToast(mockRemoteEtag);
         return;
@@ -166,6 +167,7 @@ export function VersionUpdateNotifier() {
       inFlight = true;
 
       try {
+        // 拉取站点根 HTML 并对比其中的 etag meta，绕开当前页面缓存判断远端是否已发布新版本。
         const rootUrl = new URL("/", window.location.origin);
         rootUrl.searchParams.set("__version_check", String(Date.now()));
 
@@ -189,7 +191,7 @@ export function VersionUpdateNotifier() {
           showUpdateToast(remoteEtag);
         }
       } catch {
-        // Network or parse failures intentionally fall back to "no update notice".
+        // 网络或解析失败时静默降级为“未发现更新”，避免把临时故障暴露给用户。
       } finally {
         inFlight = false;
       }

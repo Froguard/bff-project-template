@@ -71,4 +71,4 @@ mock.mock(/\/api\/\/business\/list*/, "get", (config: any) => {
 ## 接口前缀约定
 
 - `"/api/"` 开头的接口，表示前端 client 侧依赖的服务接口。开发环境下由 `next.config.ts` 统一转发到 `http://127.0.0.1:9999`，由 `mihawk` 提供 mock 能力。
-- `"/napi/"` 开头的接口，表示本系统 Next.js nodeServer 自己对外暴露的接口，不走 `mihawk`。
+- `"/napi/"` 开头的接口，表示本系统 Next.js nodeServer 自己对外暴露的接口，不走 `mihawk` 进行 mock。
