@@ -47,7 +47,7 @@ export default function DemoPage() {
   const demoRequest = useMutation({
     mutationFn: () =>
       request<{ ok: boolean; requestedAt: string; headers: { lang: string; theme: string } }>(
-        "/demo",
+        "/api/demo",
       ),
   });
 
