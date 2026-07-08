@@ -58,7 +58,6 @@ pnpm format:check
 
 - `"/api/"` 开头的接口统一表示前端 client 侧依赖的服务接口，开发环境下由 `next.config.ts` 转发到 `mihawk` mockServer。
 - `"/napi/"` 开头的接口统一表示本系统 Next.js nodeServer 对外提供的接口。
-- MockServer 使用说明见 [./mocks/README.md](./mocks/README.md)。
 
 ## 前端说明
 
@@ -67,6 +66,7 @@ pnpm format:check
 - 语言和主题状态通过 app providers 与 localStorage 进行共享。
 - 生产环境下的静态资源继续沿用 `src/lib/assets.ts` 和 `next.config.ts` 中的 CDN 感知方案。
 - 本地开发时需要同时启动 `pnpm dev` 和 `pnpm mock`，分别负责 Next.js server 和 `mihawk` mockServer。
+- MockServer 使用说明见 [./mocks/README.md](./mocks/README.md)。
 
 ## 提交流程
 
