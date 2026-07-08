@@ -1,6 +1,6 @@
 # bff-project-template
 
-Backend for Frontend 场景下的前端工程模板，基于 Next.js、TypeScript、TailwindCSS、shadcn/ui 风格组件和 pnpm 初始化。
+Backend for Frontend 场景下的前端工程，基于 Next.js、TypeScript、TailwindCSS、shadcn/ui 风格组件和 pnpm 初始化。
 
 ## 技术栈
 

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-这个仓库是一个面向 BFF 场景的 Next.js 前端模板。
+这个仓库是一个面向 BFF 场景的 Next.js 前端工程
 
 ## 技术栈
 
