@@ -44,7 +44,7 @@ export async function request<TResponse, TMock = TResponse>(
 ): Promise<TResponse | TMock> {
   const { baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "", headers, mock, ...init } = options;
 
-  if (mock) {
+  if (mock !== undefined) {
     return Promise.resolve(mock);
   }
 

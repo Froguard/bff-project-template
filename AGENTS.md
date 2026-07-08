@@ -15,6 +15,7 @@
 - 请求状态：TanStack React Query
 - 新手引导：driver.js
 - 工具库：es-toolkit、ahooks
+- 测试：Vitest、React Testing Library
 - 规范：ESLint、Prettier
 - 提交校验：Husky、lint-staged、commitlint
 
@@ -25,6 +26,7 @@
 - `src/core` 放置共享状态和应用级逻辑。
 - `src/i18n` 放置多语言初始化和翻译资源。
 - `src/lib` 放置通用工具，例如请求封装和静态资源路径工具。
+- `src/test` 放置 Vitest 公共测试 setup。
 
 ## 常用命令
 
@@ -32,6 +34,7 @@
 pnpm install
 pnpm dev
 pnpm mock
+pnpm test
 pnpm build
 pnpm lint
 pnpm typecheck
@@ -47,7 +50,7 @@ pnpm format:check
 - 变更范围尽量贴合当前请求，不要扩散到无关内容。
 - 每次修改或新增代码时，同步检查相关注释是否需要更新或新增，确保注释准确、有效且不过期。
 - 新增文件命名统一使用 kebab-case：仅允许小写字母、数字和横线连字符 `-`，不允许出现大写字母。仓库根目录中由工具或社区约定的固定文件名除外，例如 `README.md`、`AGENTS.md`。
-- 在完成较大修改前，执行 `pnpm lint`、`pnpm typecheck`、`pnpm format:check` 和 `pnpm build`。
+- 在完成较大修改前，执行 `pnpm test`、`pnpm lint`、`pnpm typecheck`、`pnpm format:check` 和 `pnpm build`。
 
 ## 接口约定
 

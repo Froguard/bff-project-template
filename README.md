@@ -14,6 +14,7 @@ Backend for Frontend 场景下的前端工程模板，基于 Next.js、TypeScrip
 - 请求状态：TanStack React Query
 - 新手引导：driver.js
 - 工具包：es-toolkit、ahooks
+- 单元测试：Vitest、React Testing Library
 - 代码规范：ESLint、Prettier
 - 提交校验：Husky、lint-staged、commitlint
 
@@ -73,6 +74,8 @@ pnpm start
 ## 常用命令
 
 ```bash
+pnpm test          # Vitest 单元/组件测试
+pnpm test:watch    # Vitest watch 模式
 pnpm lint          # ESLint 检查
 pnpm typecheck     # TypeScript 类型检查
 pnpm format        # Prettier 格式化
