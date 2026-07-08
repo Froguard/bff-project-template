@@ -58,6 +58,7 @@ pnpm format:check
 
 - `"/api/"` 开头的接口统一表示前端 client 侧依赖的服务接口，开发环境下由 `next.config.ts` 转发到 `mihawk` mockServer。
 - `"/napi/"` 开头的接口统一表示本系统 Next.js nodeServer 对外提供的接口。
+- MockServer 使用说明见 [./mocks/README.md](./mocks/README.md)。
 
 ## 前端说明
 
