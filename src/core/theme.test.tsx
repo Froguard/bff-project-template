@@ -2,7 +2,8 @@ import { act, render, renderHook } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
-import { themeInitializationScript, ThemeProvider, useTheme } from "@/core/theme";
+import { ThemeProvider, useTheme } from "@/core/theme";
+import { themeInitializationScript } from "@/core/theme-init";
 
 function mockSystemTheme(matchesDark: boolean) {
   const listeners = new Set<() => void>();
