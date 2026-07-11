@@ -1,3 +1,11 @@
+/**
+ * 用于校验 i18n 资源文件 key 结构一致性的检查脚本。
+ *
+ * 规则：
+ * - 以 `src/i18n/resources` 下字典序第一个 JSON 文件为基准语言。
+ * - 校验其它 JSON 文件是否缺失/多余同名 key，或对象结构（对象与非对象）层级不一致。
+ * - 输出结构差异并以非 0 退出码结束，用于 npm 脚本的自动化校验。
+ */
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
