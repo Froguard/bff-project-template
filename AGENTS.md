@@ -24,6 +24,7 @@
 - `src/app` 放置 App Router 路由、布局、providers 和全局样式。
 - `src/components/ui` 放置 shadcn/ui 风格的基础组件。
 - `src/core` 放置共享状态和应用级逻辑。
+- `src/core/state` 下的每个状态文件应遵循单一职责原则，同一文件内聚焦一类高相关性的 `atom` 状态逻辑，避免把无关状态混在同一文件维护。
 - `src/i18n` 放置多语言初始化和翻译资源。
 - `src/lib` 放置通用工具，例如请求封装和静态资源路径工具。
 - `src/test` 放置 Vitest 公共测试 setup。
@@ -57,6 +58,7 @@ pnpm format:check
 - 尽可能只在提交前统一运行测试、Lint、类型检查、格式检查、构建及专项检查（如 `pnpm i18ncheck`）；如果当前提交前已经完成且之后代码未变化，则不要重复运行。
 - 每次在提交代码修改之前，必须跑一遍 `pnpm test` 测试，全量通过才继续提交；如果只修改 `md` 等非代码文件或者`./mocks` 等 mock 用的文件，则不需要跑 test 任务。
 - 在完成较大修改前，执行 `pnpm test`、`pnpm lint`、`pnpm typecheck`、`pnpm format:check` 和 `pnpm build`。
+- `src/core/state` 里的状态文件按职责拆分，尽量只放置同一领域、关联度高的 atom/state 逻辑；新增状态时，优先创建独立文件，而非在既有文件堆砌不相关状态。
 
 ## 接口约定
 

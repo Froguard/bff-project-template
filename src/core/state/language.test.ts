@@ -1,9 +1,9 @@
 import { createStore } from "jotai";
 import { describe, expect, it } from "vitest";
 
-import { isSupportedLanguage, languageAtom } from "@/core/state/preferences";
+import { isSupportedLanguage, languageAtom } from "@/core/state/language";
 
-describe("preferences state", () => {
+describe("language state", () => {
   it("accepts only configured languages", () => {
     expect(isSupportedLanguage("zh-CN")).toBe(true);
     expect(isSupportedLanguage("en-US")).toBe(true);

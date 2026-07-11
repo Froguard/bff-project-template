@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { languageAtom, type Language } from "@/core/state/preferences";
+import { languageAtom, type Language } from "@/core/state/language";
 import { useTheme } from "@/core/theme";
 import { request } from "@/lib/request";
 

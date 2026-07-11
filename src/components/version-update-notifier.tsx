@@ -6,7 +6,7 @@ import { CloudDownload, RefreshCw } from "lucide-react";
 
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
-import { isSupportedLanguage } from "@/core/state/preferences";
+import { isSupportedLanguage } from "@/core/state/language";
 
 const dismissedStorageKey = "version-update-dismissed-etag";
 const mockVersionUpdateSearchParam = "mock-version-update";

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { VersionUpdateNotifier } from "@/components/version-update-notifier";
 import i18n from "@/i18n/client";
-import { isSupportedLanguage, languageAtom } from "@/core/state/preferences";
+import { isSupportedLanguage, languageAtom } from "@/core/state/language";
 import { ThemeProvider } from "@/core/theme";
 
 function LanguageBootstrap({ children }: { children: React.ReactNode }) {
