@@ -1,7 +1,5 @@
 "use client";
-
 import { useEffect, useSyncExternalStore } from "react";
-
 import { systemThemeMediaQuery, themeStorageKey } from "@/core/theme-init";
 
 export type Theme = "light" | "dark" | "system";
