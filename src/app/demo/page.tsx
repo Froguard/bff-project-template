@@ -34,15 +34,15 @@ const themeOptions = [
   { icon: Moon, labelKey: "theme.dark", value: "dark" },
 ] as const;
 
+/** 展示 BFF 前端模板集成的各项基础能力。 */
 export default function DemoPage() {
   const { t } = useTranslation();
   const [language, setLanguage] = useAtom(languageAtom);
   const { resolvedTheme, setTheme, theme } = useTheme();
 
   const activeThemeLabel = useMemo(() => {
-    const value = resolvedTheme ?? theme ?? "system";
-    return capitalize(value);
-  }, [resolvedTheme, theme]);
+    return resolvedTheme ? capitalize(resolvedTheme) : t("theme.pending");
+  }, [resolvedTheme, t]);
 
   const demoRequest = useMutation({
     mutationFn: () =>
@@ -148,8 +148,11 @@ export default function DemoPage() {
                     className="flex h-10 items-center gap-3 rounded-md border px-3"
                   >
                     <RadioGroupItem id={`theme-${item.value}`} value={item.value} />
-                    <Icon className="size-4 text-muted-foreground" />
-                    <Label className="flex-1 cursor-pointer" htmlFor={`theme-${item.value}`}>
+                    <Label
+                      className="flex flex-1 cursor-pointer items-center gap-3"
+                      htmlFor={`theme-${item.value}`}
+                    >
+                      <Icon className="size-4 text-muted-foreground" />
                       {t(item.labelKey)}
                     </Label>
                   </div>

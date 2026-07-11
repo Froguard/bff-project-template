@@ -20,7 +20,7 @@ describe("RadioGroup", () => {
     expect(screen.getByRole("radio", { name: "Dark" })).not.toBeChecked();
   });
 
-  it("calls onValueChange when a radio item is selected", () => {
+  it("calls onValueChange when nested label content is selected", () => {
     const onValueChange = vi.fn();
 
     render(
@@ -28,11 +28,14 @@ describe("RadioGroup", () => {
         <RadioGroupItem id="theme-light" value="light" />
         <Label htmlFor="theme-light">Light</Label>
         <RadioGroupItem id="theme-dark" value="dark" />
-        <Label htmlFor="theme-dark">Dark</Label>
+        <Label htmlFor="theme-dark">
+          <span data-testid="theme-dark-icon" />
+          Dark
+        </Label>
       </RadioGroup>,
     );
 
-    fireEvent.click(screen.getByRole("radio", { name: "Dark" }));
+    fireEvent.click(screen.getByTestId("theme-dark-icon"));
 
     expect(onValueChange).toHaveBeenCalledWith("dark");
   });
