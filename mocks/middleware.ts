@@ -10,21 +10,9 @@ import type { KoaContext, KoaNext } from "mihawk/com-types";
 // init a koa-router instance
 const router = new Router();
 
-/*
-// @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
-router.get('/api/demo', async (ctx: KoaContext) => {
-  ctx.status = 200;
-  ctx.type = 'application/json';
-  ctx.body = {
-    headers: {
-      lang: ctx.get('lang') || ctx.get('accept-language') || 'zh-CN',
-      theme: ctx.get('theme') || 'system',
-    },
-    ok: true,
-    requestedAt: new Date().toISOString(),
-  };
-});
-*/
+//
+// review 相关的 mock 接口 ================== start ==================
+//
 
 // define your each custom routes
 type ReviewStatus = "queued" | "running" | "completed" | "failed";
@@ -61,6 +49,8 @@ interface ReviewResponse {
   created_at: string;
   updated_at: string;
 }
+
+// 所有 reviews 存储在内存中
 const reviews = new Map<string, ReviewRecord>();
 
 const demo_report_filepath = path.join(__dirname, "./tmp/report.txt");
@@ -183,6 +173,10 @@ function buildReviewResponse(review: ReviewRecord): ReviewResponse {
     updated_at: updatedAt,
   };
 }
+
+/**
+ * 新增 review 接口
+ */
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.post("/api/reviews", (ctx: KoaContext) => {
   const jsonBody = ctx.state.jsonBody;
@@ -228,7 +222,9 @@ router.post("/api/reviews", (ctx: KoaContext) => {
   };
 });
 
-// 新增：历史综述列表（侧栏展示 + 数量）。仅新增端点，不改动任何现有逻辑。
+/**
+ * 历史综述列表（侧栏展示 + 数量）
+ */
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.get("/api/reviews", (ctx: KoaContext) => {
   const limit = Number(ctx.query.limit ?? 50);
@@ -249,6 +245,9 @@ router.get("/api/reviews", (ctx: KoaContext) => {
   ctx.body = { reviews: items, total: all.length };
 });
 
+/**
+ * 获取 review 的接口
+ */
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.get("/api/reviews/:reviewId", (ctx: KoaContext) => {
   const reviewId = ctx.params.reviewId!;
@@ -280,6 +279,9 @@ router.get("/api/reviews/:reviewId", (ctx: KoaContext) => {
   ctx.body = buildReviewResponse(review);
 });
 
+/**
+ * 获取 review 的“附件下载地址”的接口
+ */
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.get("/api/reviews/:reviewId/download", (ctx: KoaContext) => {
   const reviewId = ctx.params.reviewId!;
@@ -317,6 +319,9 @@ router.get("/api/reviews/:reviewId/download", (ctx: KoaContext) => {
   };
 });
 
+/**
+ * review 的“附件下载链接”，点击后直接出发浏览器的下载功能
+ */
 // @ts-expect-error mihawk 运行时会提供 router 的完整类型能力，这里只做本地编译兜底。
 router.get("/api/mock-files/:reviewId/report.md", (ctx: KoaContext) => {
   const reviewId = ctx.params.reviewId!;
@@ -341,6 +346,10 @@ router.get("/api/mock-files/:reviewId/report.md", (ctx: KoaContext) => {
   ctx.set("Content-Disposition", `attachment; filename="${review.reviewId}-report.md"`);
   ctx.body = REPORT_TEXT;
 });
+
+//
+// review 相关的 mock 接口 ================== end ==================
+//
 
 // ...
 
