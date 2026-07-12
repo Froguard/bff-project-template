@@ -63,7 +63,8 @@ const nextConfig: NextConfig = {
             name: "vendor",
             priority: 30,
             reuseExistingChunk: true,
-            test: /[\\/]node_modules[\\/]/,
+            // 从全局 vendor 中排除 html-to-image，使其仅在截图交互时按需加载为异步 chunk。
+            test: /^(?!.*[\\/]html-to-image[\\/]).*[\\/]node_modules[\\/]/,
           },
           shared: {
             chunks: "all",

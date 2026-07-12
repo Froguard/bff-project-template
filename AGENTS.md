@@ -47,6 +47,7 @@ pnpm format:check
 
 - 依赖和脚本统一使用 `pnpm`。
 - 保持 `package.json` 和 `pnpm-lock.yaml` 一致。
+- 对 `html-to-image`、`xlsx`、PDF 生成或解析等体积较大且仅局部页面使用的第三方包，优先通过动态 `import()` 在用户交互时按需加载为独立异步 chunk；必要时可在 hover、focus 或 touch 时预加载，并应从全局公共 `vendor` 分包规则中排除，避免所有页面加载。完成后需通过生产构建产物或 manifest 确认其未进入全局公共 chunk。
 - 文件修改优先使用 `apply_patch`。
 - 变更范围尽量贴合当前请求，不要扩散到无关内容。
 - 每次修改或新增代码时，同步检查相关注释是否需要更新或新增，确保注释准确、有效且不过期。
