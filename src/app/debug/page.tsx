@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import styles from "@/app/debug/debug-page.module.css";
+import styles from "@/app/debug/page.module.css";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/core/theme";
 import {
