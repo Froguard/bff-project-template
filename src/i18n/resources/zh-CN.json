@@ -1,6 +1,9 @@
 {
   "actions": {
-    "startGuide": "开始引导"
+    "startGuide": "开始引导",
+    "copyScreenshot": "一键截图到剪贴板",
+    "copyScreenshotDone": "截图已复制",
+    "copyScreenshotError": "截图失败，请在支持剪贴板写入的环境重试"
   },
   "app": {
     "description": "这个页面演示了 i18n、主题、请求头注入、React Query、Jotai、driver.js、ahooks 和 es-toolkit 的基础集成。",
@@ -38,6 +41,8 @@
     "doneButton": "完成",
     "requestDescription": "统一请求工具会读取当前语言和主题，并自动注入请求头。",
     "requestTitle": "请求示例",
+    "screenshotDescription": "新增“截图到剪贴板”按钮后，将当前 Demo 页面截取为图片并复制到系统剪贴板。",
+    "screenshotTitle": "页面截图",
     "themeDescription": "默认跟随系统，也可以主动选择浅色或深色主题。",
     "themeTitle": "主题切换"
   },

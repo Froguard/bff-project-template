@@ -5,8 +5,8 @@ import { useMemoizedFn } from "ahooks";
 import { driver } from "driver.js";
 import { capitalize } from "es-toolkit";
 import { useAtom } from "jotai";
-import { Monitor, Moon, Play, Sun } from "lucide-react";
-import { useMemo } from "react";
+import { Camera, Loader2, Monitor, Moon, Play, Sun } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
@@ -39,6 +39,11 @@ export default function DemoPage() {
   const { t } = useTranslation();
   const [language, setLanguage] = useAtom(languageAtom);
   const { resolvedTheme, setTheme, theme } = useTheme();
+  const htmlToImageTaskRef = useRef<Promise<typeof import("html-to-image")> | null>(null);
+  const [screenshotStatus, setScreenshotStatus] = useState<"idle" | "copying" | "done" | "error">(
+    "idle",
+  );
+  const [screenshotMessage, setScreenshotMessage] = useState("");
 
   const activeThemeLabel = useMemo(() => {
     return resolvedTheme ? capitalize(resolvedTheme) : t("theme.pending");
@@ -81,8 +86,63 @@ export default function DemoPage() {
             description: t("guide.requestDescription"),
           },
         },
+        {
+          element: "#demo-screenshot-button",
+          popover: {
+            title: t("guide.screenshotTitle"),
+            description: t("guide.screenshotDescription"),
+          },
+        },
       ],
     }).drive();
+  });
+
+  const loadHtmlToImage = useMemoizedFn(() => {
+    if (!htmlToImageTaskRef.current) {
+      htmlToImageTaskRef.current = import("html-to-image").catch((error: unknown) => {
+        htmlToImageTaskRef.current = null;
+        throw error;
+      });
+    }
+
+    return htmlToImageTaskRef.current;
+  });
+
+  const copyScreenshot = useMemoizedFn(async () => {
+    setScreenshotStatus("copying");
+    setScreenshotMessage("");
+
+    try {
+      const { toBlob } = await loadHtmlToImage();
+      const targetNode = document.documentElement;
+      const width = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+      const height = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+      const blob = await toBlob(targetNode, {
+        width,
+        height,
+        pixelRatio: Math.min((window.devicePixelRatio ?? 1) * 0.9, 2),
+      });
+
+      if (!blob) {
+        throw new Error("capture_failed");
+      }
+
+      const clipboardItem = new ClipboardItem({ [blob.type]: blob });
+      await navigator.clipboard.write([clipboardItem]);
+      setScreenshotStatus("done");
+      setScreenshotMessage(t("actions.copyScreenshotSuccess"));
+      window.setTimeout(() => {
+        setScreenshotStatus("idle");
+        setScreenshotMessage("");
+      }, 2000);
+    } catch (error: unknown) {
+      setScreenshotStatus("error");
+      setScreenshotMessage(t("actions.copyScreenshotError"));
+      setTimeout(() => {
+        setScreenshotStatus("idle");
+      }, 2000);
+      console.error(error);
+    }
   });
 
   return (
@@ -99,12 +159,50 @@ export default function DemoPage() {
                 {t("app.description")}
               </p>
             </div>
-            <Button id="guide-button" className="w-full gap-2 md:w-auto" onClick={startGuide}>
-              <Play className="size-4" />
-              {t("actions.startGuide")}
-            </Button>
+            <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row">
+              <Button
+                id="guide-button"
+                className="w-full gap-2 md:w-auto"
+                onClick={startGuide}
+                variant="secondary"
+              >
+                <Play className="size-4" />
+                {t("actions.startGuide")}
+              </Button>
+              <Button
+                id="demo-screenshot-button"
+                className="w-full gap-2 md:w-auto"
+                variant="default"
+                onClick={copyScreenshot}
+                onMouseEnter={() => {
+                  void loadHtmlToImage();
+                }}
+                onFocus={() => {
+                  void loadHtmlToImage();
+                }}
+                disabled={screenshotStatus === "copying"}
+              >
+                {screenshotStatus === "copying" ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <Camera className="size-4" />
+                )}
+                {screenshotStatus === "done"
+                  ? t("actions.copyScreenshotDone")
+                  : t("actions.copyScreenshot")}
+              </Button>
+            </div>
           </div>
         </header>
+        {screenshotMessage ? (
+          <p
+            className={`text-sm ${
+              screenshotStatus === "error" ? "text-destructive" : "text-muted-foreground"
+            }`}
+          >
+            {screenshotMessage}
+          </p>
+        ) : null}
 
         <div className="grid gap-4 md:grid-cols-3">
           <section
